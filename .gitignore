@@ -1,0 +1,6 @@
+/target
+*.svg
+**/target
+*.dot
+*.vscode
+*.DS_Store
