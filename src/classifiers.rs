@@ -13,14 +13,15 @@ mod __classifiers {
 }
 type JsonArrayValue = __classifiers::NestedList<Box<Json>>;
 type JsonArrayLog = __classifiers::NestedListLog<JsonLog>;
-type JsonObjectValue = __classifiers::UWMap<std::string::String, Box<Json>>;
-type JsonObjectLog = __classifiers::UWMapLog<std::string::String, JsonLog>;
+type JsonObjectValue = __classifiers::UWMap<String, Box<Json>>;
+type JsonObjectLog = __classifiers::UWMapLog<String, JsonLog>;
 type JsonStringValue = __classifiers::List<char>;
 type JsonStringLog = __classifiers::EventGraph<__classifiers::List<char>>;
 type JsonNumberValue = __classifiers::Counter<f64>;
 type JsonNumberLog = __classifiers::VecLog<__classifiers::Counter<f64>>;
 type JsonBooleanValue = __classifiers::EWFlag;
 type JsonBooleanLog = __classifiers::VecLog<__classifiers::EWFlag>;
+
 __classifiers::union!(
     Json = Array(JsonArrayValue, JsonArrayLog)
         | Object(JsonObjectValue, JsonObjectLog)
