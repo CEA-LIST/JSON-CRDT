@@ -6,25 +6,27 @@ mod __package {
     pub use moirai_protocol::crdt::query::QueryOperation;
     pub use moirai_protocol::crdt::query::Read;
     pub use moirai_protocol::event::Event;
-    pub use moirai_protocol::replica::ReplicaIdx;
     pub use moirai_protocol::state::log::IsLog;
+    pub use moirai_protocol::state::object_path::ObjectPath;
+    pub use moirai_protocol::state::sink::SinkCollector;
+    pub use moirai_protocol::state::sink::SinkOwnership;
+    pub use moirai_protocol::utils::intern_str::InternalizeOp;
     pub use moirai_protocol::utils::intern_str::Interner;
-    pub use moirai_protocol::utils::translate_ids::TranslateIds;
 }
 #[derive(Debug, Clone)]
 pub enum Json {
-    Json(__package::Json),
+    JsonKind(__package::JsonKind),
 }
 #[derive(Debug, Clone, Default)]
 pub struct JsonValue {
-    pub json: __package::JsonValue,
+    pub json: __package::JsonKindValue,
 }
 #[derive(Debug, Clone, Default)]
 pub struct JsonLog {
-    json_log: __package::JsonLog,
+    json_log: __package::JsonKindLog,
 }
 impl JsonLog {
-    pub fn json_log(&self) -> &__package::JsonLog {
+    pub fn json_log(&self) -> &__package::JsonKindLog {
         &self.json_log
     }
 }
@@ -33,12 +35,23 @@ impl __package::IsLog for JsonLog {
     type Op = Json;
     fn is_enabled(&self, op: &Self::Op) -> bool {
         match op {
-            Json::Json(o) => self.json_log.is_enabled(o),
+            Json::JsonKind(o) => self.json_log.is_enabled(o),
         }
     }
-    fn effect(&mut self, event: __package::Event<Self::Op>) {
+    fn effect(
+        &mut self,
+        event: __package::Event<Self::Op>,
+        _path: __package::ObjectPath,
+        _sink: &mut __package::SinkCollector,
+        _ownership: __package::SinkOwnership,
+    ) {
         match event.op().clone() {
-            Json::Json(o) => self.json_log.effect(__package::Event::unfold(event, o)),
+            Json::JsonKind(o) => self.json_log.effect(
+                __package::Event::unfold(event.clone(), o),
+                __package::ObjectPath::new("json"),
+                &mut __package::SinkCollector::new(),
+                __package::SinkOwnership::Owned,
+            ),
         }
     }
     fn stabilize(&mut self, version: &__package::Version) {
@@ -62,10 +75,10 @@ impl __package::EvalNested<__package::Read<<Self as __package::IsLog>::Value>> f
         }
     }
 }
-impl __package::TranslateIds for Json {
-    fn translate_ids(&self, from: __package::ReplicaIdx, interner: &__package::Interner) -> Self {
+impl __package::InternalizeOp for Json {
+    fn internalize(self, _interner: &__package::Interner) -> Self {
         match self {
-            Json::Json(op) => Json::Json(op.clone()),
+            Json::JsonKind(op) => Json::JsonKind(op.clone()),
         }
     }
 }

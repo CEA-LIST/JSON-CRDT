@@ -1,0 +1,379 @@
+{
+  "name": "json",
+  "timestamp": "2026-04-05T19:29:36.967331+02:00",
+  "git_commit": "0ba964b49a87d991da9c4bad5a3bb22f2152cbe7",
+  "git_branch": "main",
+  "final_merge": true,
+  "summary": {
+    "total_runs": 10,
+    "avg_runs_per_replica_throughput_ops_per_sec": 0.0,
+    "min_runs_per_replica_throughput_ops_per_sec": 0.0,
+    "max_runs_per_replica_throughput_ops_per_sec": 0.0,
+    "avg_time_per_op_ms": 0.0,
+    "avg_final_size": 32.7,
+    "max_final_width": 133,
+    "max_final_height": 14
+  },
+  "runs": [
+    {
+      "run_number": 1,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Value(Array([Value(Array([Value(Array([Value(Object({\"yg\": Value(Array([Value(Arra ... ) }",
+        "avg_time_per_op_ms": 1.66675,
+        "avg_throughput_ops_per_sec": 601.455240198046,
+        "total_deliver_ms_per_replica": [
+          1530,
+          1766,
+          1686,
+          1685
+        ],
+        "total_effect_ms_per_replica": [
+          1127,
+          1246,
+          1170,
+          1225
+        ],
+        "avg_effect_ms": 1192.0,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0xA37D0A10279A95CF1673D27EBC05EA7C93BF7ADF2FF53FCC9F8418799B1915A1",
+        "final_metrics": {
+          "size": 0,
+          "width": 0,
+          "height": 0
+        }
+      }
+    },
+    {
+      "run_number": 2,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Value(Array([Value(Number(36.0)), Value(Number(-192.0)), Value(String(['T', 'b', ' ... ) }",
+        "avg_time_per_op_ms": 1.53825,
+        "avg_throughput_ops_per_sec": 650.405722509588,
+        "total_deliver_ms_per_replica": [
+          1608,
+          1528,
+          1515,
+          1502
+        ],
+        "total_effect_ms_per_replica": [
+          1095,
+          1144,
+          1100,
+          1061
+        ],
+        "avg_effect_ms": 1100.0,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0x0A9B782A531344FE232CA853E5314DCD33987A0E1A0EEEC84AF62DCD47A19E7A",
+        "final_metrics": {
+          "size": 0,
+          "width": 0,
+          "height": 0
+        }
+      }
+    },
+    {
+      "run_number": 3,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Value(Array([Value(Array([])), Value(Boolean(false)), Value(Boolean(true)), Value( ... ) }",
+        "avg_time_per_op_ms": 1.603,
+        "avg_throughput_ops_per_sec": 625.1920771823749,
+        "total_deliver_ms_per_replica": [
+          1484,
+          1627,
+          1596,
+          1705
+        ],
+        "total_effect_ms_per_replica": [
+          1093,
+          1151,
+          1145,
+          1212
+        ],
+        "avg_effect_ms": 1150.25,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0x33C59BD4B8808E8AD55BBDDF2E9D9E87E3F1C9D73EEB893617FFCACC8E6C38B4",
+        "final_metrics": {
+          "size": 0,
+          "width": 0,
+          "height": 0
+        }
+      }
+    },
+    {
+      "run_number": 4,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Conflict([Array([Value(Object({\"nwm\": Value(Object({})), \"fd\": Value(String(['w']) ... ) }",
+        "avg_time_per_op_ms": 0.3465,
+        "avg_throughput_ops_per_sec": 2886.9713284636664,
+        "total_deliver_ms_per_replica": [
+          330,
+          355,
+          357,
+          344
+        ],
+        "total_effect_ms_per_replica": [
+          262,
+          261,
+          268,
+          263
+        ],
+        "avg_effect_ms": 263.5,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0xC7302C0AB5D2C2DA4B45953F995348A45BA1C9DCFC3F2BBACB88245093F963B4",
+        "final_metrics": {
+          "size": 63,
+          "width": 63,
+          "height": 8
+        }
+      }
+    },
+    {
+      "run_number": 5,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Value(Number(-122.0)) }",
+        "avg_time_per_op_ms": 0.0,
+        "avg_throughput_ops_per_sec": 1528293.916931188,
+        "total_deliver_ms_per_replica": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "total_effect_ms_per_replica": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "avg_effect_ms": 0.0,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0x703E63A76F28E4C949126143727AA74F86C33471901C9FB75B033CCB4604B116",
+        "final_metrics": {
+          "size": 1,
+          "width": 1,
+          "height": 2
+        }
+      }
+    },
+    {
+      "run_number": 6,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Value(Array([Value(Boolean(true)), Value(String([])), Value(Number(0.0)), Value(St ... ) }",
+        "avg_time_per_op_ms": 1.50375,
+        "avg_throughput_ops_per_sec": 667.4244577017308,
+        "total_deliver_ms_per_replica": [
+          1592,
+          1528,
+          1547,
+          1348
+        ],
+        "total_effect_ms_per_replica": [
+          1098,
+          1065,
+          1083,
+          986
+        ],
+        "avg_effect_ms": 1058.0,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0x4AF067F62AA10353FC5534053F42D8A1E9E2B809D4456C53CEFA3B6E2A957B92",
+        "final_metrics": {
+          "size": 0,
+          "width": 0,
+          "height": 0
+        }
+      }
+    },
+    {
+      "run_number": 7,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Value(Object({\"ipsx\": Value(Object({\"oaif\": Value(String([]))})), \"zc\": Value(Arra ... ) }",
+        "avg_time_per_op_ms": 0.6212500000000001,
+        "avg_throughput_ops_per_sec": 1609.901198721228,
+        "total_deliver_ms_per_replica": [
+          627,
+          596,
+          648,
+          614
+        ],
+        "total_effect_ms_per_replica": [
+          626,
+          595,
+          647,
+          613
+        ],
+        "avg_effect_ms": 620.25,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0xA6E97E06143157891E8F457F9F5AA9BF0DF2ADB88D14068A8029BBA43D693B34",
+        "final_metrics": {
+          "size": 128,
+          "width": 128,
+          "height": 12
+        }
+      }
+    },
+    {
+      "run_number": 8,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Conflict([Array([Value(Array([Value(Object({})), Value(Object({\"wib\": Value(Number ... ) }",
+        "avg_time_per_op_ms": 0.3105,
+        "avg_throughput_ops_per_sec": 3218.9318794146134,
+        "total_deliver_ms_per_replica": [
+          299,
+          317,
+          311,
+          315
+        ],
+        "total_effect_ms_per_replica": [
+          160,
+          169,
+          158,
+          163
+        ],
+        "avg_effect_ms": 162.5,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0xF8B1302F058A0A39F8AB4EC59ADFA18A77BE56F8E43B2D4D463C8200ED7DDB84",
+        "final_metrics": {
+          "size": 1,
+          "width": 1,
+          "height": 2
+        }
+      }
+    },
+    {
+      "run_number": 9,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Value(Object({\"pf\": Value(Object({\"xltj\": Value(Number(0.0))})), \"ptta\": Value(Str ... ) }",
+        "avg_time_per_op_ms": 0.6775,
+        "avg_throughput_ops_per_sec": 1477.4237571670446,
+        "total_deliver_ms_per_replica": [
+          697,
+          669,
+          709,
+          635
+        ],
+        "total_effect_ms_per_replica": [
+          696,
+          667,
+          707,
+          634
+        ],
+        "avg_effect_ms": 676.0,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0x4257B6451D37FC02612EF4DDF7700F7B8BA3E50C13BF1B4F8FB6D3C63BADB710",
+        "final_metrics": {
+          "size": 133,
+          "width": 133,
+          "height": 14
+        }
+      }
+    },
+    {
+      "run_number": 10,
+      "parameters": {
+        "num_replicas": 4,
+        "num_operations": 1000,
+        "churn_rate": 0.5,
+        "disable_stability": false,
+        "reachability": null
+      },
+      "results": {
+        "final_state": "JsonValue { json: Value(String(['s', 'U', 'L', 'M', 'Z', 'j', 's', 'H', 'P', 's', '9', 'a', 'y', 'J' ... ) }",
+        "avg_time_per_op_ms": 0.47625,
+        "avg_throughput_ops_per_sec": 2104.259266477787,
+        "total_deliver_ms_per_replica": [
+          433,
+          486,
+          484,
+          502
+        ],
+        "total_effect_ms_per_replica": [
+          5,
+          5,
+          5,
+          5
+        ],
+        "avg_effect_ms": 5.0,
+        "execution_graph_dot": null,
+        "inter_replica_concurrency_ratio": null,
+        "used_seed": "0xF44EE4FE629C949F65BF9E1774311E14C68DC87CB3E580128F5A39A9C87BA168",
+        "final_metrics": {
+          "size": 1,
+          "width": 1,
+          "height": 2
+        }
+      }
+    }
+  ]
+}

@@ -11,21 +11,20 @@ mod __classifiers {
     pub use moirai_protocol::state::event_graph::EventGraph;
     pub use moirai_protocol::state::po_log::VecLog;
 }
-type JsonArrayValue = __classifiers::NestedList<Box<Json>>;
-type JsonArrayLog = __classifiers::NestedListLog<JsonLog>;
-type JsonObjectValue = __classifiers::UWMap<String, Box<Json>>;
-type JsonObjectLog = __classifiers::UWMapLog<String, JsonLog>;
-type JsonStringValue = __classifiers::List<char>;
+type JsonArray = __classifiers::NestedList<Box<JsonKind>>;
+type JsonArrayLog = __classifiers::NestedListLog<JsonKindLog>;
+type JsonObject = __classifiers::UWMap<std::string::String, Box<JsonKind>>;
+type JsonObjectLog = __classifiers::UWMapLog<std::string::String, JsonKindLog>;
+type JsonString = __classifiers::List<char>;
 type JsonStringLog = __classifiers::EventGraph<__classifiers::List<char>>;
-type JsonNumberValue = __classifiers::Counter<f64>;
+type JsonNumber = __classifiers::Counter<f64>;
 type JsonNumberLog = __classifiers::VecLog<__classifiers::Counter<f64>>;
-type JsonBooleanValue = __classifiers::EWFlag;
+type JsonBoolean = __classifiers::EWFlag;
 type JsonBooleanLog = __classifiers::VecLog<__classifiers::EWFlag>;
-
 __classifiers::union!(
-    Json = Array(JsonArrayValue, JsonArrayLog)
-        | Object(JsonObjectValue, JsonObjectLog)
-        | String(JsonStringValue, JsonStringLog)
-        | Number(JsonNumberValue, JsonNumberLog)
-        | Boolean(JsonBooleanValue, JsonBooleanLog)
+    JsonKind = Array(JsonArray, JsonArrayLog)
+        | Object(JsonObject, JsonObjectLog)
+        | String(JsonString, JsonStringLog)
+        | Number(JsonNumber, JsonNumberLog)
+        | Boolean(JsonBoolean, JsonBooleanLog)
 );
