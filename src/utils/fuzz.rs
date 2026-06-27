@@ -7,15 +7,10 @@ use moirai_crdt::{
     },
     map::uw_map::{UWMap, UWMapLog},
 };
-use moirai_fuzz::{
-    metrics::{FuzzMetrics, StructureMetrics},
-    op_generator::OpGeneratorNested,
-};
-use moirai_protocol::{
-    crdt::query::Read,
-    state::{event_graph::EventGraph, po_log::VecLog},
-    utils::boxer::Boxer,
-};
+use moirai_fuzz::op_generator::OpGeneratorNested;
+#[cfg(feature = "fuzz")]
+use moirai_protocol::state::graph_log::GraphLog;
+use moirai_protocol::{crdt::query::Read, state::po_log::VecLog, utils::boxer::Boxer};
 use rand::Rng;
 
 #[cfg(feature = "fuzz")]
@@ -49,8 +44,8 @@ impl OpGeneratorNested for JsonKindLog {
             JsonKind::Boolean(<VecLog<EWFlag> as OpGeneratorNested>::generate(log, rng))
         }
 
-        fn generate_string(log: &EventGraph<List<char>>, rng: &mut impl Rng) -> JsonKind {
-            JsonKind::String(<EventGraph<List<char>> as OpGeneratorNested>::generate(
+        fn generate_string(log: &GraphLog<List<char>>, rng: &mut impl Rng) -> JsonKind {
+            JsonKind::String(<GraphLog<List<char>> as OpGeneratorNested>::generate(
                 log, rng,
             ))
         }
@@ -130,7 +125,7 @@ impl OpGeneratorNested for JsonKindLog {
                     Choice::Number => generate_number(&VecLog::<Counter<f64>>::new(), rng),
                     Choice::Boolean => generate_boolean(&VecLog::<EWFlag>::new(), rng),
                     Choice::Object => generate_object(&UWMapLog::<String, JsonKindLog>::new(), rng),
-                    Choice::String => generate_string(&EventGraph::<List<char>>::new(), rng),
+                    Choice::String => generate_string(&GraphLog::<List<char>>::new(), rng),
                     Choice::Array => generate_array(&NestedListLog::<JsonKindLog>::new(), rng),
                 }
             }
@@ -182,11 +177,5 @@ impl OpGeneratorNested for JsonKindLog {
 impl OpGeneratorNested for JsonLog {
     fn generate(&self, rng: &mut impl Rng) -> Self::Op {
         Json::JsonKind(self.json_log().generate(rng))
-    }
-}
-
-impl FuzzMetrics for JsonLog {
-    fn structure_metrics(&self) -> StructureMetrics {
-        self.json_log().structure_metrics()
     }
 }
