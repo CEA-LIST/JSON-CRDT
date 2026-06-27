@@ -3,12 +3,12 @@ use json::{
         JsonKind,
         JsonKindVariant::{Boolean, Number},
     },
-    package::{Json, JsonLog, ReadAsEcore},
+    package::{Json, JsonLog},
 };
 use moirai_crdt::{
     counter::resettable_counter::Counter, flag::ew_flag::EWFlag, utils::membership::twins_log,
 };
-use moirai_protocol::replica::IsReplica;
+use moirai_protocol::{crdt::query::Read, replica::IsReplica};
 
 #[test]
 fn example_of_execution() {
@@ -46,7 +46,7 @@ fn example_of_execution() {
     // They are in the same state and see the same document
     // They can query the document as an Ecore model
 
-    println!("{}", replica_a.query(ReadAsEcore));
+    println!("{:#?}", replica_a.query(Read::new()));
 
-    assert_eq!(replica_a.query(ReadAsEcore), replica_b.query(ReadAsEcore));
+    assert_eq!(replica_a.query(Read::new()), replica_b.query(Read::new()));
 }

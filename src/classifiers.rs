@@ -7,7 +7,6 @@ mod __classifiers {
     pub use moirai_crdt::list::nested_list::NestedListLog;
     pub use moirai_crdt::map::uw_map::UWMap;
     pub use moirai_crdt::map::uw_map::UWMapLog;
-    pub use moirai_macros::record;
     pub use moirai_macros::union;
     pub use moirai_protocol::state::graph_log::GraphLog;
     pub use moirai_protocol::state::po_log::VecLog;

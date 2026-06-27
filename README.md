@@ -27,7 +27,6 @@ Arachne generated the `classifier.rs`, `references.rs`, `package.rs`, and `lib.r
 │   └── references.rs # Automatically generated
 ├── tests/
 │   ├── fuzzer.rs # Fuzzer test
-│   ├── regression.rs # Regression tests used during Arachne development
 │   └── scenarios.rs # Test scenarios illustrating how conflicts are solved
 ├── json.ecore # Ecore metamodel
 └── json.png # Ecore metamodel diagram
