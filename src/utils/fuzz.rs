@@ -9,7 +9,7 @@ use moirai_crdt::{
 };
 use moirai_fuzz::op_generator::OpGeneratorNested;
 #[cfg(feature = "fuzz")]
-use moirai_protocol::state::graph_log::GraphLog;
+use moirai_protocol::state::{graph_log::GraphLog, log::BoxedLog};
 use moirai_protocol::{crdt::query::Read, state::po_log::VecLog, utils::boxer::Boxer};
 use rand::Rng;
 
@@ -55,8 +55,12 @@ impl OpGeneratorNested for JsonKindLog {
             JsonKind::Object(Boxer::<UWMap<String, Box<JsonKind>>>::boxer(op))
         }
 
-        fn generate_array(log: &NestedListLog<JsonKindLog>, rng: &mut impl Rng) -> JsonKind {
-            let op = <NestedListLog<JsonKindLog> as OpGeneratorNested>::generate(log, rng);
+        fn generate_array(
+            log: &NestedListLog<BoxedLog<JsonKindLog>>,
+            rng: &mut impl Rng,
+        ) -> JsonKind {
+            let op =
+                <NestedListLog<BoxedLog<JsonKindLog>> as OpGeneratorNested>::generate(log, rng);
             JsonKind::Array(Boxer::<NestedList<Box<JsonKind>>>::boxer(op))
         }
 
@@ -126,7 +130,9 @@ impl OpGeneratorNested for JsonKindLog {
                     Choice::Boolean => generate_boolean(&VecLog::<EWFlag>::new(), rng),
                     Choice::Object => generate_object(&UWMapLog::<String, JsonKindLog>::new(), rng),
                     Choice::String => generate_string(&GraphLog::<List<char>>::new(), rng),
-                    Choice::Array => generate_array(&NestedListLog::<JsonKindLog>::new(), rng),
+                    Choice::Array => {
+                        generate_array(&NestedListLog::<BoxedLog<JsonKindLog>>::new(), rng)
+                    }
                 }
             }
             JsonKindValue::Value(v) => match &self.child {
