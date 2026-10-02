@@ -7,7 +7,10 @@ use moirai_crdt::{
     },
     map::uw_map::{UWMap, UWMapLog},
 };
-use moirai_fuzz::op_generator::OpGeneratorNested;
+#[cfg(feature = "fuzz")]
+use moirai_fuzz::generator::command_generator::CommandGenerator;
+#[cfg(feature = "fuzz")]
+use moirai_fuzz::observers::footprint::{FootprintNode, LogFootprint};
 #[cfg(feature = "fuzz")]
 use moirai_protocol::state::{graph_log::GraphLog, log::BoxedLog};
 use moirai_protocol::{crdt::query::Read, state::po_log::VecLog, utils::boxer::Boxer};
@@ -20,8 +23,31 @@ use crate::classifiers::{
 use crate::package::{Json, JsonLog};
 
 #[cfg(feature = "fuzz")]
-impl OpGeneratorNested for JsonKindLog {
-    fn generate(&self, rng: &mut impl Rng) -> Self::Op {
+impl deepsize::DeepSizeOf for Json {
+    fn deep_size_of_children(&self, context: &mut deepsize::Context) -> usize {
+        match self {
+            Json::JsonKind(op) => deepsize::DeepSizeOf::deep_size_of_children(op, context),
+        }
+    }
+}
+
+#[cfg(feature = "fuzz")]
+impl deepsize::DeepSizeOf for JsonLog {
+    fn deep_size_of_children(&self, context: &mut deepsize::Context) -> usize {
+        deepsize::DeepSizeOf::deep_size_of_children(self.json_log(), context)
+    }
+}
+
+#[cfg(feature = "fuzz")]
+impl LogFootprint for JsonLog {
+    fn footprint(&self) -> FootprintNode {
+        FootprintNode::leaf(self)
+    }
+}
+
+#[cfg(feature = "fuzz")]
+impl CommandGenerator for JsonKindLog {
+    fn generate_command(&self, rng: &mut impl Rng) -> Self::Command {
         use moirai_protocol::state::log::IsLog;
         use rand::distr::{Distribution, weighted::WeightedIndex};
 
@@ -35,23 +61,22 @@ impl OpGeneratorNested for JsonKindLog {
         let dist = WeightedIndex::new([2, 2, 2, 3, 3]).unwrap();
 
         fn generate_number(log: &VecLog<Counter<f64>>, rng: &mut impl Rng) -> JsonKind {
-            JsonKind::Number(<VecLog<Counter<f64>> as OpGeneratorNested>::generate(
-                log, rng,
-            ))
+            JsonKind::Number(<VecLog<Counter<f64>> as CommandGenerator>::generate_command(log, rng))
         }
 
         fn generate_boolean(log: &VecLog<EWFlag>, rng: &mut impl Rng) -> JsonKind {
-            JsonKind::Boolean(<VecLog<EWFlag> as OpGeneratorNested>::generate(log, rng))
-        }
-
-        fn generate_string(log: &GraphLog<List<char>>, rng: &mut impl Rng) -> JsonKind {
-            JsonKind::String(<GraphLog<List<char>> as OpGeneratorNested>::generate(
+            JsonKind::Boolean(<VecLog<EWFlag> as CommandGenerator>::generate_command(
                 log, rng,
             ))
         }
 
+        fn generate_string(log: &GraphLog<List<char>>, rng: &mut impl Rng) -> JsonKind {
+            JsonKind::String(<GraphLog<List<char>> as CommandGenerator>::generate_command(log, rng))
+        }
+
         fn generate_object(log: &UWMapLog<String, JsonKindLog>, rng: &mut impl Rng) -> JsonKind {
-            let op = <UWMapLog<String, JsonKindLog> as OpGeneratorNested>::generate(log, rng);
+            let op =
+                <UWMapLog<String, JsonKindLog> as CommandGenerator>::generate_command(log, rng);
             JsonKind::Object(Boxer::<UWMap<String, Box<JsonKind>>>::boxer(op))
         }
 
@@ -59,8 +84,9 @@ impl OpGeneratorNested for JsonKindLog {
             log: &NestedListLog<BoxedLog<JsonKindLog>>,
             rng: &mut impl Rng,
         ) -> JsonKind {
-            let op =
-                <NestedListLog<BoxedLog<JsonKindLog>> as OpGeneratorNested>::generate(log, rng);
+            let op = <NestedListLog<BoxedLog<JsonKindLog>> as CommandGenerator>::generate_command(
+                log, rng,
+            );
             JsonKind::Array(Boxer::<NestedList<Box<JsonKind>>>::boxer(op))
         }
 
@@ -87,7 +113,7 @@ impl OpGeneratorNested for JsonKindLog {
             }
         }
 
-        let value = self.eval(Read::new());
+        let value = self.eval(&Read::new());
 
         match value {
             JsonKindValue::Unset => {
@@ -180,8 +206,8 @@ impl OpGeneratorNested for JsonKindLog {
     }
 }
 
-impl OpGeneratorNested for JsonLog {
-    fn generate(&self, rng: &mut impl Rng) -> Self::Op {
-        Json::JsonKind(self.json_log().generate(rng))
+impl CommandGenerator for JsonLog {
+    fn generate_command(&self, rng: &mut impl Rng) -> Self::Command {
+        Json::JsonKind(self.json_log().generate_command(rng))
     }
 }

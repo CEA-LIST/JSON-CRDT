@@ -39,7 +39,7 @@ Rust must be installed on your machine: <https://rust-lang.org/tools/install>. T
 Running all the tests:
 
 ```sh
-RUST_LOG=debug cargo test
+RUST_LOG=debug cargo test --release
 ```
 
 Running the fuzzer:
