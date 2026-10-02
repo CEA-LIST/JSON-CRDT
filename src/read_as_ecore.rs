@@ -104,7 +104,7 @@ fn visit_json_kind(
                         attrs.push_value("xsi:type", "json:String");
                     }
                     {
-                        let value = xmi_read::<_, String>(child_log);
+                        let value = xmi_read::<_, std::string::String>(child_log);
                         attrs.push_values("value", vec![(value).to_string()], true);
                     }
                     (writer).element(element_name, &attrs, |writer| {});
